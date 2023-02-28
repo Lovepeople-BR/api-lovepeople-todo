@@ -16,7 +16,7 @@ module.exports = createCoreController('api::todo.todo', ({strapi}) => ({
         const data = await strapi.entityService.findMany("api::todo.todo", {
         populate: 'image',
         filters: {
-            "user": {
+            "users_permissions_user": {
                 "id": user.id
             }
         },
@@ -34,7 +34,7 @@ module.exports = createCoreController('api::todo.todo', ({strapi}) => ({
       const {id} = ctx.state.user; //ctx.state.user contains the current authenticated user
       const response = await super.create(ctx);
       const updatedResponse = await strapi.entityService
-        .update('api::todo.todo', response.data.id, {data: {user: id}})
+        .update('api::todo.todo', response.data.id, {data: {users_permissions_user: id}})
       return updatedResponse;
     },
     
